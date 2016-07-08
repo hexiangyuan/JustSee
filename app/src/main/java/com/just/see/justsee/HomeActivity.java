@@ -3,7 +3,9 @@ package com.just.see.justsee;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.just.see.justsee.base.JustSeeActivity;
+
+public class HomeActivity extends JustSeeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
