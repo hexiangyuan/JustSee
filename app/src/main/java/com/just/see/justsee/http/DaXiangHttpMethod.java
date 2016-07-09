@@ -4,11 +4,13 @@ import com.just.see.justsee.JsonBean.daxiang.DaXiangInfo;
 import com.just.see.justsee.JsonBean.daxiang.DaXiangList;
 import com.just.see.justsee.api.DaXiangUrl;
 import com.just.see.justsee.api.service.DaXiangService;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -43,19 +45,21 @@ public class DaXiangHttpMethod extends HttpMethod {
         return SingletonHolder.INSTANCE;
     }
 
-    public void getDaXiangList(int pageSize, int page, Subscriber<DaXiangList> subscriber) {
+    public void getDaXiangList(RxFragment activity, int pageSize, int page, Subscriber<DaXiangList> subscriber) {
         daXiangService.getDaXiangList(pageSize, page)
+                .compose(activity.<DaXiangList>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
 
-    public void getDaXiangInfo(String id, Subscriber<DaXiangInfo> subscriber) {
-        daXiangService.getDaXiangInfo(id)
+    public Subscription getDaXiangInfo(String id, Subscriber<DaXiangInfo> subscriber) {
+       return daXiangService.getDaXiangInfo(id)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
 }

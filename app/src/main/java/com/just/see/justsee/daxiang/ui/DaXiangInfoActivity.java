@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ public class DaXiangInfoActivity extends JustSeeActivity implements IDaXiangInfo
     ImageView headPic;
     @BindView(R.id.text)
     TextView richText;
+    @BindView(R.id.author)
+    TextView author;
     String id;
     DaXiangInfoPresenter presenter;
     JustSeeProgressDialog progressDialog;
@@ -70,9 +73,22 @@ public class DaXiangInfoActivity extends JustSeeActivity implements IDaXiangInfo
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    @Override
     public void daXiangInfoLoaded(DaXiangInfo daXiangInfo) {
         if (daXiangInfo != null) {
             String content = daXiangInfo.body.article.content;
+            author.setText(daXiangInfo.body.article.author);
             RichText.from(content).into(richText);
         }
     }
@@ -92,5 +108,15 @@ public class DaXiangInfoActivity extends JustSeeActivity implements IDaXiangInfo
     @Override
     public void showError(Throwable e) {
         ToastUtil.showToast(e.getMessage());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
+        presenter.cancleSubscribe();
     }
 }

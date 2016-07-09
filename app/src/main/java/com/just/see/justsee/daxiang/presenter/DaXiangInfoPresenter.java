@@ -5,6 +5,7 @@ import com.just.see.justsee.daxiang.View.IDaXiangInfoView;
 import com.just.see.justsee.http.DaXiangHttpMethod;
 
 import rx.Subscriber;
+import rx.Subscription;
 
 /**
  * Created by xiyoung on 2016/7/9.
@@ -13,6 +14,7 @@ import rx.Subscriber;
 public class DaXiangInfoPresenter {
     DaXiangHttpMethod model = null;
     IDaXiangInfoView view = null;
+    Subscription subscription = null;
 
     public DaXiangInfoPresenter(IDaXiangInfoView view) {
         this.model = DaXiangHttpMethod.getInstance();
@@ -20,7 +22,7 @@ public class DaXiangInfoPresenter {
     }
 
     public void loadDaXiangInfo(String id) {
-        model.getDaXiangInfo(id, new Subscriber<DaXiangInfo>() {
+        subscription = model.getDaXiangInfo(id, new Subscriber<DaXiangInfo>() {
             @Override
             public void onStart() {
                 super.onStart();
@@ -39,8 +41,14 @@ public class DaXiangInfoPresenter {
 
             @Override
             public void onNext(DaXiangInfo daXiangInfo) {
-               view.daXiangInfoLoaded(daXiangInfo);
+                view.daXiangInfoLoaded(daXiangInfo);
             }
         });
+    }
+
+    public void cancleSubscribe() {
+        if (subscription != null) {
+            subscription.unsubscribe();
+        }
     }
 }

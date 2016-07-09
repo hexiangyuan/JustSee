@@ -3,6 +3,7 @@ package com.just.see.justsee.daxiang.presenter;
 import com.just.see.justsee.JsonBean.daxiang.DaXiangList;
 import com.just.see.justsee.daxiang.View.IDaXiangListView;
 import com.just.see.justsee.http.DaXiangHttpMethod;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 import rx.Subscriber;
 
@@ -19,7 +20,7 @@ public class DaXiangListPresenter {
     }
 
     public void loadDaXiangList(int pageSize, final int page) {
-        model.getDaXiangList(pageSize, page, new Subscriber<DaXiangList>() {
+        model.getDaXiangList((RxFragment)view,pageSize, page, new Subscriber<DaXiangList>() {
             @Override
             public void onStart() {
                 super.onStart();
