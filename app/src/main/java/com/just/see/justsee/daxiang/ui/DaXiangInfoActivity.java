@@ -101,14 +101,14 @@ public class DaXiangInfoActivity extends JustSeeActivity implements IDaXiangInfo
 
     @Override
     public void showRefresh() {
-        if (!progressDialog.isShowing())
-            progressDialog.show();
+     /*   if (!progressDialog.isShowing())
+            progressDialog.show();*/
     }
 
     @Override
     public void hideRefresh() {
-        if (progressDialog.isShowing())
-            progressDialog.hide();
+    /*    if (progressDialog.isShowing())
+            progressDialog.hide();*/
     }
 
     @Override
