@@ -25,7 +25,6 @@ import java.util.List;
 public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView, SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView recyclerView;
     private DaXiangListAdapter adapter;
-    private DaXiangList daXiangList;
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<DaXiangList.Body.Article> articles;
     private int page = 0;

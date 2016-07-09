@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.just.see.justsee.JsonBean.daxiang.DaXiangList;
 import com.just.see.justsee.R;
+import com.just.see.justsee.util.DateFormat;
 import com.just.see.justsee.util.Image;
-import com.just.see.justsee.util.ToastUtil;
 
 import java.util.List;
 
@@ -76,7 +76,7 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             title.setText(article.title);
             brief.setText(article.brief);
             author.setText(article.author);
-            date.setText(article.update_time);
+            date.setText(DateFormat.forMatDate(article.update_time));
             this.article = article;
             readNum.setText(String.format("阅读量：%s", article.read_num));
             Image.loadImage(article.raw_headpic, pic);
@@ -84,7 +84,6 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         @Override
         public void onClick(View view) {
-            ToastUtil.showToast(article.id);
             Intent i = new Intent(context, DaXiangInfoActivity.class);
             i.putExtras(DaXiangInfoActivity.setArguments(article.id,article.title,article.headpic));
             context.startActivity(i);
