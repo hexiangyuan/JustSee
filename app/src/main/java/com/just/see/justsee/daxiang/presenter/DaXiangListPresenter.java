@@ -39,7 +39,11 @@ public class DaXiangListPresenter {
 
             @Override
             public void onNext(DaXiangList daXiangList) {
-                view.DaXiangListLoaded(daXiangList,page);
+                if(page == 0){
+                    view.reFreshData(daXiangList);
+                }else{
+                    view.loadMoreData(daXiangList);
+                }
             }
         });
     }

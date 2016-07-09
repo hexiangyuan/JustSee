@@ -8,5 +8,7 @@ import com.just.see.justsee.base.BaseView;
  */
 public interface IDaXiangListView extends BaseView{
 
-    void DaXiangListLoaded(DaXiangList daXiangList, int page);
+    void loadMoreData(DaXiangList daXiangList);
+
+    void reFreshData(DaXiangList daXiangList);
 }

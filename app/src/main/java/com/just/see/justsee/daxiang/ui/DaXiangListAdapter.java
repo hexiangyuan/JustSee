@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.just.see.justsee.JsonBean.daxiang.DaXiangList;
 import com.just.see.justsee.R;
 import com.just.see.justsee.util.Image;
+import com.just.see.justsee.util.ToastUtil;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.articles = articles;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.title)
         TextView title;
         @BindView(R.id.brief)
@@ -62,9 +63,12 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @BindView(R.id.pic)
         ImageView pic;
 
+        DaXiangList.Body.Article article;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(DaXiangList.Body.Article article) {
@@ -72,8 +76,14 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             brief.setText(article.brief);
             author.setText(article.author);
             date.setText(article.update_time);
+            this.article =article;
             readNum.setText(String.format("阅读量：%s", article.read_num));
             Image.loadImage(article.raw_headpic, pic);
+        }
+
+        @Override
+        public void onClick(View view) {
+            ToastUtil.showToast(article.id);
         }
     }
 }

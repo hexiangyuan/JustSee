@@ -22,7 +22,7 @@ import java.util.List;
  * Created by xiyoung on 2016/7/8.
  * JustSeeFragment
  */
-public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView {
+public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView, SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView recyclerView;
     private DaXiangListAdapter adapter;
     private DaXiangList daXiangList;
@@ -45,28 +45,51 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         presenter = new DaXiangListPresenter(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(manager);
+        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         adapter = new DaXiangListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-        presenter.loadDaXiangList(PAGE_SIZE,page);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisiblePos = manager.findFirstCompletelyVisibleItemPosition() + recyclerView.getChildCount();
+                int itemCount = manager.getItemCount();
+                if ((lastVisiblePos) >= itemCount - 1) {
+                    presenter.loadDaXiangList(PAGE_SIZE, page);
+                }
+            }
+        });
+        presenter.loadDaXiangList(PAGE_SIZE, page);
     }
 
     @Override
-    public void DaXiangListLoaded(DaXiangList daXiangList, int page) {
+    public void reFreshData(DaXiangList daXiangList) {
         if (daXiangList != null && daXiangList.body != null && daXiangList.body.article != null) {
-            if (page == 0) {
-                articles = daXiangList.body.article;
-                adapter.setAdapterDate(articles);
-                adapter.notifyDataSetChanged();
-            }
-            if (page > 0) {
-                int fromPosition = articles.size();
-                articles.addAll(daXiangList.body.article);
-                adapter.setAdapterDate(articles);
-                adapter.notifyItemMoved(fromPosition, fromPosition + daXiangList.body.article.size());
-            }
-            page++;
+            articles = daXiangList.body.article;
+            adapter.setAdapterDate(articles);
+            adapter.notifyDataSetChanged();
+            this.page++;
+        }
+    }
+
+    @Override
+    public void loadMoreData(DaXiangList daXiangList) {
+        if (daXiangList != null && daXiangList.body != null && daXiangList.body.article != null) {
+            int fromPosition = articles.size();
+            articles.addAll(daXiangList.body.article);
+            adapter.setAdapterDate(articles);
+            adapter.notifyItemMoved(fromPosition, fromPosition + daXiangList.body.article.size());
+            this.page++;
         }
     }
 
@@ -87,5 +110,11 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
     @Override
     public void showError(Throwable e) {
         ToastUtil.showLongToast(e.getMessage());
+    }
+
+    @Override
+    public void onRefresh() {
+        page = 0;
+        presenter.loadDaXiangList(PAGE_SIZE, page);
     }
 }
