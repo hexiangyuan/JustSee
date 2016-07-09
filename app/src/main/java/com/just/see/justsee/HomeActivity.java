@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import com.just.see.justsee.base.JustSeeActivity;
-import com.just.see.justsee.daxiang.DaXiangFragment;
+import com.just.see.justsee.daxiang.ui.DaXiangFragment;
 
 public class HomeActivity extends JustSeeActivity {
 

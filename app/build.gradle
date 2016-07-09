@@ -22,7 +22,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile rootProject.ext.dependencies["appcompat-v7"]
     compile rootProject.ext.dependencies["design"]
@@ -34,5 +34,8 @@ dependencies {
     compile rootProject.ext.dependencies["retrofit2:adapter-rxjava"]
     compile rootProject.ext.dependencies["rxandroid"]
     compile rootProject.ext.dependencies["rxjava"]
-
+    compile rootProject.ext.dependencies["glide"]
+    //    compile rootProject.ext.dependencies["supportV4"]
+    //    compile rootProject.ext.dependencies["okhttpglide"]
+    compile 'com.android.support:cardview-v7:24.0.0'
 }
