@@ -3,6 +3,7 @@ package com.just.see.justsee.daxiang.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -47,7 +48,7 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-        adapter = new DaXiangListAdapter(getActivity());
+        adapter = new DaXiangListAdapter((AppCompatActivity) getActivity());
         recyclerView.setAdapter(adapter);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         swipeRefreshLayout.setOnRefreshListener(this);

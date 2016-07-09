@@ -1,7 +1,6 @@
 package com.just.see.justsee.daxiang.ui;
 
-import android.content.Context;
-import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +23,9 @@ import butterknife.ButterKnife;
  */
 public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<DaXiangList.Body.Article> articles;
-    Context context;
+    AppCompatActivity context;
 
-    public DaXiangListAdapter(Context context) {
+    public DaXiangListAdapter(AppCompatActivity context) {
         this.context = context;
     }
 
@@ -84,9 +83,10 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(context, DaXiangInfoActivity.class);
-            i.putExtras(DaXiangInfoActivity.setArguments(article.id,article.title,article.headpic));
-            context.startActivity(i);
+            DaXiangInfoActivity.launch(context,view.findViewById(R.id.pic),article.id,article.title,article.headpic);
+           /* Intent i = new Intent(context, DaXiangInfoActivity.class);
+            i.putExtras(DaXiangInfoActivity.setArguments(article.id, article.title, article.headpic));
+            context.startActivity(i);*/
         }
     }
 }

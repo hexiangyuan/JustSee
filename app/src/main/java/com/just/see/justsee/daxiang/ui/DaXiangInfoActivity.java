@@ -3,8 +3,13 @@ package com.just.see.justsee.daxiang.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,6 +55,7 @@ public class DaXiangInfoActivity extends JustSeeActivity implements IDaXiangInfo
         Intent intent = getIntent();
         if (intent == null) finish();
         initView(intent);
+        ViewCompat.setTransitionName(headPic, "headPic");
         presenter = new DaXiangInfoPresenter(this);
         progressDialog = new JustSeeProgressDialog(this);
         presenter.loadDaXiangInfo(id);
@@ -118,5 +124,14 @@ public class DaXiangInfoActivity extends JustSeeActivity implements IDaXiangInfo
             progressDialog = null;
         }
         presenter.cancleSubscribe();
+    }
+
+    public static void launch(AppCompatActivity activity, View transitionView, String infoId, String title, String headPic) {
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionView, "headPic");
+        Intent i = new Intent(activity, DaXiangInfoActivity.class);
+        i.putExtra("id", infoId);
+        i.putExtra("title", title);
+        i.putExtra("headPic", headPic);
+        ActivityCompat.startActivity(activity, i, optionsCompat.toBundle());
     }
 }
