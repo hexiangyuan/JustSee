@@ -16,10 +16,12 @@
             android:theme="@style/AppTheme.Base">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".daxiang.ui.DaXiangInfoActivity"
+            android:theme="@style/AppTheme.Base"/>
     </application>
 
 </manifest>

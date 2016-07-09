@@ -29,6 +29,6 @@ public interface DaXiangService {
      * @return
      */
     @GET("api/v1_0/art/info")
-    Observable<DaXiangInfo> getDaXiangIngo(@Query("id") int id);
+    Observable<DaXiangInfo> getDaXiangInfo(@Query("id") String id);
 }
 

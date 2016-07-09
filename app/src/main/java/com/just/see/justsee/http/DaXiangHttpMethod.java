@@ -51,8 +51,8 @@ public class DaXiangHttpMethod extends HttpMethod {
                 .subscribe(subscriber);
     }
 
-    public void getDaXiangInfo(int id, Subscriber<DaXiangInfo> subscriber) {
-        daXiangService.getDaXiangIngo(id)
+    public void getDaXiangInfo(String id, Subscriber<DaXiangInfo> subscriber) {
+        daXiangService.getDaXiangInfo(id)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

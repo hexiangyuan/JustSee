@@ -43,6 +43,7 @@ public class DaXiangInfo implements Serializable{
             public String raw_headpic;
             public String author;
             public String brief;//富文本
+            public String content;
             public String read_num;
             public String wechat_url;
             public String url;

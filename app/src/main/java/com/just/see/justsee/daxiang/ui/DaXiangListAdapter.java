@@ -1,6 +1,7 @@
 package com.just.see.justsee.daxiang.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,7 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_daxiang_list,parent,false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_daxiang_list, parent, false));
     }
 
     @Override
@@ -76,7 +77,7 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             brief.setText(article.brief);
             author.setText(article.author);
             date.setText(article.update_time);
-            this.article =article;
+            this.article = article;
             readNum.setText(String.format("阅读量：%s", article.read_num));
             Image.loadImage(article.raw_headpic, pic);
         }
@@ -84,6 +85,9 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @Override
         public void onClick(View view) {
             ToastUtil.showToast(article.id);
+            Intent i = new Intent(context, DaXiangInfoActivity.class);
+            i.putExtras(DaXiangInfoActivity.setArguments(article.id,article.title,article.headpic));
+            context.startActivity(i);
         }
     }
 }
