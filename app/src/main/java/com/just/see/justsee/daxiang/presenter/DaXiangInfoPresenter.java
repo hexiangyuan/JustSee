@@ -47,7 +47,7 @@ public class DaXiangInfoPresenter {
     }
 
     public void cancleSubscribe() {
-        if (subscription != null) {
+        if (subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }
     }
