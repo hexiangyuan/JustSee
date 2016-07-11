@@ -86,7 +86,7 @@ public class DaXiangInfoActivity extends JustSeeActivity implements IDaXiangInfo
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
