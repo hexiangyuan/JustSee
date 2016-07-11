@@ -25,6 +25,10 @@ import com.zzhoujay.richtext.RichText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by xiyoung on 2016/7/9.
@@ -95,8 +99,37 @@ public class DaXiangInfoActivity extends JustSeeActivity implements IDaXiangInfo
         if (daXiangInfo != null) {
             String content = daXiangInfo.body.article.content;
             author.setText(daXiangInfo.body.article.author);
-            RichText.from(content).into(richText);
+            setRichText(content);
         }
+    }
+
+    private void setRichText(final String content) {
+        Observable.create(new Observable.OnSubscribe<RichText>() {
+            @Override
+            public void call(Subscriber<? super RichText> subscriber) {
+                RichText from = RichText.from(content);
+                subscriber.onNext(from);
+                subscriber.onCompleted();
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<RichText>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(RichText Text) {
+                        Text.into(richText);
+                    }
+                });
     }
 
     @Override
