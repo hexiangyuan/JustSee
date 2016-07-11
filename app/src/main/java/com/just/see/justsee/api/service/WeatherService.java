@@ -10,7 +10,7 @@ import rx.Observable;
  * Created by xiyoung on 2016/7/11.
  *
  */
-public interface WeatherSeriver {
+public interface WeatherService {
     @GET("index")
     Observable<WeatherBean> getWeather(@Query("format")int format,@Query("cityname")String cityName,@Query("key")String apiKey);
 }
