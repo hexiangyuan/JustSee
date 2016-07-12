@@ -12,12 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.just.see.justsee.JsonBean.daxiang.DaXiangList;
+import com.just.see.justsee.JsonBean.weather.WeatherBean;
 import com.just.see.justsee.base.JustSeeFragment;
 import com.just.see.justsee.daxiang.View.IDaXiangListView;
 import com.just.see.justsee.daxiang.presenter.DaXiangListPresenter;
+import com.just.see.justsee.daxiang.presenter.WeatherPresenter;
 import com.just.see.justsee.util.ToastUtil;
 
 import java.util.List;
+
+import rx.Subscription;
 
 /**
  * Created by xiyoung on 2016/7/8.
@@ -31,6 +35,8 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
     private int page = 0;
     private final static int PAGE_SIZE = 20;
     DaXiangListPresenter presenter;
+    WeatherPresenter weatherPresenter;
+    private Subscription weatherSub;
 
     @Nullable
     @Override
@@ -45,12 +51,18 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         presenter = new DaXiangListPresenter(this);
+        weatherPresenter = new WeatherPresenter(this);
+        setRecyclerView();
+        presenter.loadDaXiangList(PAGE_SIZE, page);
+        weatherSub = weatherPresenter.getWeather("上海");
+    }
+
+    private void setRecyclerView() {
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         adapter = new DaXiangListAdapter((AppCompatActivity) getActivity());
         recyclerView.setAdapter(adapter);
-        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -69,7 +81,6 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
                 }
             }
         });
-        presenter.loadDaXiangList(PAGE_SIZE, page);
     }
 
     @Override
@@ -80,6 +91,11 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
             adapter.notifyDataSetChanged();
             this.page++;
         }
+    }
+
+    @Override
+    public void weatherLoaded(WeatherBean weatherBean) {
+
     }
 
     @Override
@@ -116,5 +132,14 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
     public void onRefresh() {
         page = 0;
         presenter.loadDaXiangList(PAGE_SIZE, page);
+        weatherPresenter.getWeather("上海");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (weatherSub != null) {
+            weatherSub.unsubscribe();
+        }
     }
 }

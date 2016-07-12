@@ -26,6 +26,15 @@ public class WeatherBean {
     public int error_code;
 
     public static class Result {
+        @Override
+        public String toString() {
+            return "Result{" +
+                    "sk=" + sk +
+                    ", today=" + today +
+                    ", future=" + future +
+                    '}';
+        }
+
         /**
          * temp : 21
          * wind_direction : 西风
@@ -79,6 +88,28 @@ public class WeatherBean {
             public String week;
             public String temperature;
             public String weather;
+
+            @Override
+            public String toString() {
+                return "Today{" +
+                        "city='" + city + '\'' +
+                        ", date_y='" + date_y + '\'' +
+                        ", week='" + week + '\'' +
+                        ", temperature='" + temperature + '\'' +
+                        ", weather='" + weather + '\'' +
+                        ", weather_id=" + weather_id +
+                        ", wind='" + wind + '\'' +
+                        ", dressing_index='" + dressing_index + '\'' +
+                        ", dressing_advice='" + dressing_advice + '\'' +
+                        ", uv_index='" + uv_index + '\'' +
+                        ", comfort_index='" + comfort_index + '\'' +
+                        ", wash_index='" + wash_index + '\'' +
+                        ", travel_index='" + travel_index + '\'' +
+                        ", exercise_index='" + exercise_index + '\'' +
+                        ", drying_index='" + drying_index + '\'' +
+                        '}';
+            }
+
             /**
              * fa : 00
              * fb : 53
@@ -119,5 +150,15 @@ public class WeatherBean {
                 public String fb;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "WeatherBean{" +
+                "resultcode='" + resultcode + '\'' +
+                ", reason='" + reason + '\'' +
+                ", result=" + result +
+                ", error_code=" + error_code +
+                '}';
     }
 }

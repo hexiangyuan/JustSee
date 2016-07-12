@@ -7,14 +7,12 @@ import com.just.see.justsee.api.service.WeatherService;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Subscriber;
-import rx.Subscription;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
  * Created by xiyoung on 2016/7/11.
- *
  */
 public class WeatherHttpMethod extends HttpMethod {
     private Retrofit retrofit = null;
@@ -31,6 +29,11 @@ public class WeatherHttpMethod extends HttpMethod {
         weatherService = retrofit.create(WeatherService.class);
     }
 
+    public WeatherHttpMethod() {
+        super();
+        setRetrofit();
+    }
+
     static class SingletonHolder {
         private static final WeatherHttpMethod INSTANCE = new WeatherHttpMethod();
     }
@@ -39,11 +42,10 @@ public class WeatherHttpMethod extends HttpMethod {
         return SingletonHolder.INSTANCE;
     }
 
-    public Subscription getWeather(String cityName, Subscriber<WeatherBean> subscriber) {
+    public Observable<WeatherBean> getWeather(String cityName) {
         return weatherService.getWeather(2, cityName, WeatherUrl.KEY)
-                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribeOn(Schedulers.io());
     }
 }
