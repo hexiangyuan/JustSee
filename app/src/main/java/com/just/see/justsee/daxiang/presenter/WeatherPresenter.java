@@ -19,7 +19,7 @@ public class WeatherPresenter {
 
     public WeatherPresenter(IDaXiangListView view) {
         this.view = view;
-        model = new WeatherHttpMethod();
+        model = WeatherHttpMethod.getInstance();
     }
 
     public Subscription getWeather(String cityName) {

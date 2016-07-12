@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.just.see.justsee.JsonBean.daxiang.DaXiangList;
 import com.just.see.justsee.JsonBean.weather.WeatherBean;
+import com.just.see.justsee.R;
 import com.just.see.justsee.base.JustSeeFragment;
 import com.just.see.justsee.daxiang.View.IDaXiangListView;
 import com.just.see.justsee.daxiang.presenter.DaXiangListPresenter;
@@ -21,6 +22,8 @@ import com.just.see.justsee.util.ToastUtil;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.Subscription;
 
 /**
@@ -28,9 +31,11 @@ import rx.Subscription;
  * JustSeeFragment
  */
 public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView, SwipeRefreshLayout.OnRefreshListener {
-    private RecyclerView recyclerView;
+    @BindView(R.id.recycler_view)
+     RecyclerView recyclerView;
     private DaXiangListAdapter adapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
     private List<DaXiangList.Body.Article> articles;
     private int page = 0;
     private final static int PAGE_SIZE = 20;
@@ -41,10 +46,9 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        swipeRefreshLayout = new SwipeRefreshLayout(getContext());
-        recyclerView = new RecyclerView(getContext());
-        swipeRefreshLayout.addView(recyclerView);
-        return swipeRefreshLayout;
+        View view = inflater.inflate(R.layout.fragment_daxiang_list, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override

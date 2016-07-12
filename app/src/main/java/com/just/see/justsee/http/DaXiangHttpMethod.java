@@ -17,24 +17,12 @@ import rx.schedulers.Schedulers;
 /**
  * Created by xiyoung on 2016/7/8.
  */
-public class DaXiangHttpMethod extends HttpMethod {
-    private Retrofit retrofit = null;
+public class DaXiangHttpMethod {
     private DaXiangService daXiangService = null;
 
-    @Override
-    public void setRetrofit() {
-        retrofit = new Retrofit.Builder()
-                .client(client)
-                .baseUrl(DaXiangUrl.DA_XIANG_URL)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        daXiangService = retrofit.create(DaXiangService.class);
-    }
 
     public DaXiangHttpMethod() {
-        super();
-        setRetrofit();
+        daXiangService = RetrofitHelper.setUrl(DaXiangUrl.DA_XIANG_URL).create(DaXiangService.class);
     }
 
     static class SingletonHolder {
@@ -55,7 +43,7 @@ public class DaXiangHttpMethod extends HttpMethod {
     }
 
     public Subscription getDaXiangInfo(String id, Subscriber<DaXiangInfo> subscriber) {
-       return daXiangService.getDaXiangInfo(id)
+        return daXiangService.getDaXiangInfo(id)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
