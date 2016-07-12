@@ -6,9 +6,6 @@ import com.just.see.justsee.api.DaXiangUrl;
 import com.just.see.justsee.api.service.DaXiangService;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;

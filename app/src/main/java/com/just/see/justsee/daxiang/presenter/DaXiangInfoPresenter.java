@@ -6,6 +6,7 @@ import com.just.see.justsee.http.DaXiangHttpMethod;
 
 import rx.Subscriber;
 import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by xiyoung on 2016/7/9.
@@ -15,6 +16,7 @@ public class DaXiangInfoPresenter {
     DaXiangHttpMethod model = null;
     IDaXiangInfoView view = null;
     Subscription subscription = null;
+    private CompositeSubscription compositeSubscription;
 
     public DaXiangInfoPresenter(IDaXiangInfoView view) {
         this.model = DaXiangHttpMethod.getInstance();
@@ -44,6 +46,9 @@ public class DaXiangInfoPresenter {
                 view.daXiangInfoLoaded(daXiangInfo);
             }
         });
+         compositeSubscription = new CompositeSubscription();
+        compositeSubscription.add(subscription);
+        compositeSubscription.unsubscribe();
     }
 
     public void cancleSubscribe() {
