@@ -9,6 +9,7 @@ public abstract class BasePresenter {
     protected CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     public void unsubscribe() {
-        compositeSubscription.unsubscribe();
+        if (compositeSubscription != null && !compositeSubscription.isUnsubscribed())
+            compositeSubscription.unsubscribe();
     }
 }
