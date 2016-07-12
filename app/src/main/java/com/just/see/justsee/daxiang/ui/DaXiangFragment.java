@@ -32,10 +32,10 @@ import rx.Subscription;
  */
 public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view)
-     RecyclerView recyclerView;
-    private DaXiangListAdapter adapter;
+    RecyclerView recyclerView;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
+    private DaXiangListAdapter adapter;
     private List<DaXiangList.Body.Article> articles;
     private int page = 0;
     private final static int PAGE_SIZE = 20;
@@ -58,7 +58,7 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
         weatherPresenter = new WeatherPresenter(this);
         setRecyclerView();
         presenter.loadDaXiangList(PAGE_SIZE, page);
-        weatherSub = weatherPresenter.getWeather("上海");
+        weatherPresenter.getWeather("上海");
     }
 
     private void setRecyclerView() {
@@ -142,8 +142,6 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
     @Override
     public void onStop() {
         super.onStop();
-        if (weatherSub != null) {
-            weatherSub.unsubscribe();
-        }
+        weatherPresenter.unsubscribe();
     }
 }
