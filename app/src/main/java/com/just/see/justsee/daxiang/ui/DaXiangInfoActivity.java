@@ -151,12 +151,12 @@ public class DaXiangInfoActivity extends JustSeeActivity implements IDaXiangInfo
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if (progressDialog != null) {
             progressDialog.dismiss();
             progressDialog = null;
         }
-        presenter.cancleSubscribe();
+        presenter.unsubscribe();
+        super.onDestroy();
     }
 
     public static void launch(AppCompatActivity activity, View transitionView, String infoId, String title, String headPic) {

@@ -30,6 +30,7 @@ public class DaXiangListPresenter {
             @Override
             public void onCompleted() {
                 hideRefresh();
+                view.daXiangLoadCompleted();
             }
 
             @Override
@@ -40,7 +41,7 @@ public class DaXiangListPresenter {
 
             @Override
             public void onNext(DaXiangList daXiangList) {
-                if(page == 0){
+                if(page == 1){
                     view.reFreshData(daXiangList);
                 }else{
                     view.loadMoreData(daXiangList);

@@ -14,4 +14,6 @@ public interface IDaXiangListView extends BaseView{
     void reFreshData(DaXiangList daXiangList);
 
     void weatherLoaded(WeatherBean weatherBean);
+
+    void daXiangLoadCompleted();
 }

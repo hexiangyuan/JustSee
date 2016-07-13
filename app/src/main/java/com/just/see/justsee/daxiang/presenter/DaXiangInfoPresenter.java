@@ -1,22 +1,21 @@
 package com.just.see.justsee.daxiang.presenter;
 
 import com.just.see.justsee.JsonBean.daxiang.DaXiangInfo;
+import com.just.see.justsee.base.BasePresenter;
 import com.just.see.justsee.daxiang.View.IDaXiangInfoView;
 import com.just.see.justsee.http.DaXiangHttpMethod;
 
 import rx.Subscriber;
 import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by xiyoung on 2016/7/9.
  * 这是大象 detail的presenter
  */
-public class DaXiangInfoPresenter {
+public class DaXiangInfoPresenter extends BasePresenter{
     DaXiangHttpMethod model = null;
     IDaXiangInfoView view = null;
     Subscription subscription = null;
-    private CompositeSubscription compositeSubscription;
 
     public DaXiangInfoPresenter(IDaXiangInfoView view) {
         this.model = DaXiangHttpMethod.getInstance();
@@ -46,14 +45,6 @@ public class DaXiangInfoPresenter {
                 view.daXiangInfoLoaded(daXiangInfo);
             }
         });
-         compositeSubscription = new CompositeSubscription();
         compositeSubscription.add(subscription);
-        compositeSubscription.unsubscribe();
-    }
-
-    public void cancleSubscribe() {
-        if (subscription != null && !subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-        }
     }
 }

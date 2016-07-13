@@ -36,10 +36,11 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
     SwipeRefreshLayout swipeRefreshLayout;
     private DaXiangListAdapter adapter;
     private List<DaXiangList.Body.Article> articles;
-    private int page = 0;
+    private int page = 1;
     private final static int PAGE_SIZE = 20;
     DaXiangListPresenter presenter;
     WeatherPresenter weatherPresenter;
+    private boolean loadFinished;
 
     @Nullable
     @Override
@@ -78,8 +79,9 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
                 super.onScrolled(recyclerView, dx, dy);
                 int lastVisiblePos = manager.findFirstCompletelyVisibleItemPosition() + recyclerView.getChildCount();
                 int itemCount = manager.getItemCount();
-                if ((lastVisiblePos) >= itemCount - 1) {
+                if ((lastVisiblePos) >= itemCount - 1 && loadFinished) {
                     presenter.loadDaXiangList(PAGE_SIZE, page);
+                    loadFinished = false;
                 }
             }
         });
@@ -90,8 +92,9 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
         if (daXiangList != null && daXiangList.body != null && daXiangList.body.article != null) {
             articles = daXiangList.body.article;
             adapter.setAdapterDate(articles);
-            adapter.notifyDataSetChanged();
+            adapter.notifyItemRangeChanged(1,PAGE_SIZE);
             this.page++;
+
         }
     }
 
@@ -101,13 +104,19 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
     }
 
     @Override
+    public void daXiangLoadCompleted() {
+        loadFinished = true;
+    }
+
+    @Override
     public void loadMoreData(DaXiangList daXiangList) {
         if (daXiangList != null && daXiangList.body != null && daXiangList.body.article != null) {
             int fromPosition = articles.size();
             articles.addAll(daXiangList.body.article);
             adapter.setAdapterDate(articles);
-            adapter.notifyItemChanged(fromPosition + 1, fromPosition + daXiangList.body.article.size() + 1);
+            adapter.notifyItemRangeChanged(fromPosition + 1, PAGE_SIZE);
             this.page++;
+            loadFinished = true;
         }
     }
 
@@ -132,7 +141,7 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
 
     @Override
     public void onRefresh() {
-        page = 0;
+        page = 1;
         presenter.loadDaXiangList(PAGE_SIZE, page);
         weatherPresenter.getWeather("上海");
     }
