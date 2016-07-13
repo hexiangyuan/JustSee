@@ -1,6 +1,7 @@
 package com.just.see.justsee.daxiang.ui;
 
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.just.see.justsee.JsonBean.daxiang.DaXiangList;
+import com.just.see.justsee.JsonBean.weather.WeatherBean;
 import com.just.see.justsee.R;
 import com.just.see.justsee.util.DateFormat;
 import com.just.see.justsee.util.Image;
@@ -23,7 +25,10 @@ import butterknife.ButterKnife;
  */
 public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<DaXiangList.Body.Article> articles;
+    final static int TYPE_WEATHER = 0;
+    final static int TYPE_DAXIANG = 1;
     AppCompatActivity context;
+    WeatherBean bean;
 
     public DaXiangListAdapter(AppCompatActivity context) {
         this.context = context;
@@ -31,25 +36,55 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_daxiang_list, parent, false));
+        switch (viewType) {
+            case TYPE_WEATHER:
+                return new WeatherHolder(LayoutInflater.from(context).inflate(R.layout.item_weather, parent, false));
+            default:
+                return new DaXiangHolder(LayoutInflater.from(context).inflate(R.layout.item_daxiang_list, parent, false));
+        }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (articles != null && articles.size() > 0)
-            ((ViewHolder) holder).bind(articles.get(position));
+        switch (getItemViewType(position)) {
+            case TYPE_DAXIANG:
+                ((DaXiangHolder) holder).bind(articles.get(position -1));
+                break;
+            case TYPE_WEATHER:
+                if (bean != null) {
+                    ((WeatherHolder) holder).bind("上海", bean);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setBean(WeatherBean bean) {
+        this.bean = bean;
+        notifyItemChanged(TYPE_WEATHER);
     }
 
     @Override
     public int getItemCount() {
-        return articles == null ? 0 : articles.size();
+        return articles == null ?  1 : articles.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        switch (position) {
+            case 0:
+                return TYPE_WEATHER;
+            default:
+                return TYPE_DAXIANG;
+        }
     }
 
     public void setAdapterDate(List<DaXiangList.Body.Article> articles) {
         this.articles = articles;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class DaXiangHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.title)
         TextView title;
         @BindView(R.id.brief)
@@ -65,7 +100,7 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         DaXiangList.Body.Article article;
 
-        public ViewHolder(View itemView) {
+        public DaXiangHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
@@ -83,10 +118,54 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         @Override
         public void onClick(View view) {
-            DaXiangInfoActivity.launch(context,view.findViewById(R.id.pic),article.id,article.title,article.headpic);
-           /* Intent i = new Intent(context, DaXiangInfoActivity.class);
-            i.putExtras(DaXiangInfoActivity.setArguments(article.id, article.title, article.headpic));
-            context.startActivity(i);*/
+            DaXiangInfoActivity.launch(context, view.findViewById(R.id.pic), article.id, article.title, article.headpic);
+        }
+    }
+
+    class WeatherHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @BindView(R.id.location)
+        TextView tvLocation;
+        @BindView(R.id.card)
+        CardView cardView;
+        @BindView(R.id.week)
+        TextView tvWeek;
+        @BindView(R.id.weather_type)
+        ImageView ivWeatherType;
+        @BindView(R.id.temp)
+        TextView tvTemperature;
+        @BindView(R.id.ic_wind)
+        ImageView icWind;
+        @BindView(R.id.tv_wind)
+        TextView tvWind;
+        @BindView(R.id.ic_wind_strength)
+        ImageView icWindStrength;
+        @BindView(R.id.tv_wind_strength)
+        TextView tvWindStrength;
+        @BindView(R.id.ic_humidity)
+        ImageView icHumidity;
+        @BindView(R.id.tv_humidity)
+        TextView tvHumidity;
+
+        public WeatherHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        public void bind(String location, WeatherBean weatherBean) {
+            if (weatherBean != null) {
+                tvLocation.setText(location);
+                tvWeek.setText(weatherBean.result.today.week);
+                tvTemperature.setText(weatherBean.result.sk.temp);
+                tvHumidity.setText(weatherBean.result.sk.humidity);
+                tvWindStrength.setText(weatherBean.result.sk.wind_strength);
+                tvWind.setText(weatherBean.result.sk.wind_direction);
+            }
+        }
+
+        @Override
+        public void onClick(View view) {
+
         }
     }
 }

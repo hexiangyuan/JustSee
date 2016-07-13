@@ -24,7 +24,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Subscription;
 
 /**
  * Created by xiyoung on 2016/7/8.
@@ -41,7 +40,6 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
     private final static int PAGE_SIZE = 20;
     DaXiangListPresenter presenter;
     WeatherPresenter weatherPresenter;
-    private Subscription weatherSub;
 
     @Nullable
     @Override
@@ -99,7 +97,7 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
 
     @Override
     public void weatherLoaded(WeatherBean weatherBean) {
-
+        adapter.setBean(weatherBean);
     }
 
     @Override
@@ -108,7 +106,7 @@ public class DaXiangFragment extends JustSeeFragment implements IDaXiangListView
             int fromPosition = articles.size();
             articles.addAll(daXiangList.body.article);
             adapter.setAdapterDate(articles);
-            adapter.notifyItemMoved(fromPosition, fromPosition + daXiangList.body.article.size());
+            adapter.notifyItemChanged(fromPosition + 1, fromPosition + daXiangList.body.article.size() + 1);
             this.page++;
         }
     }
