@@ -44,4 +44,5 @@ dependencies {
     compile 'com.trello:rxlifecycle-components:0.6.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.pwittchen:weathericonview:1.1.0'
+    compile 'com.roughike:bottom-bar:1.4.0'
 }

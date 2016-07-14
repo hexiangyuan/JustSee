@@ -48,7 +48,7 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case TYPE_DAXIANG:
-                ((DaXiangHolder) holder).bind(articles.get(position -1));
+                ((DaXiangHolder) holder).bind(articles.get(position - 1));
                 break;
             case TYPE_WEATHER:
                 if (bean != null) {
@@ -67,7 +67,7 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return articles == null ?  1 : articles.size() + 1;
+        return articles == null ? 1 : articles.size() + 1;
     }
 
     @Override
@@ -155,6 +155,7 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public void bind(String location, WeatherBean weatherBean) {
             if (weatherBean != null) {
                 tvLocation.setText(location);
+                tvLocation.setOnClickListener(this);
                 tvWeek.setText(weatherBean.result.today.week);
                 tvTemperature.setText(weatherBean.result.sk.temp);
                 tvHumidity.setText(weatherBean.result.sk.humidity);
@@ -165,7 +166,15 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         @Override
         public void onClick(View view) {
-
+            switch (view.getId()) {
+                case R.id.location:
+                    ShowDialogLocation();
+                    break;
+            }
         }
+    }
+
+    private void ShowDialogLocation() {
+
     }
 }
