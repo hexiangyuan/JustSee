@@ -1,7 +1,7 @@
 package com.just.see.justsee.http;
 
 import com.just.see.justsee.JsonBean.weather.WeatherBean;
-import com.just.see.justsee.api.WeatherUrl;
+import com.just.see.justsee.api.urls.WeatherUrl;
 import com.just.see.justsee.api.service.WeatherService;
 
 import rx.Observable;
