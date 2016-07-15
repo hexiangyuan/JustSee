@@ -12,16 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.just.see.justsee.HomeActivity"
+            android:name=".HomeActivity"
             android:theme="@style/AppTheme.Base">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".daxiang.ui.DaXiangInfoActivity"
-            android:theme="@style/AppTheme.Base"/>
+            android:theme="@style/AppTheme.Base" />
+        <activity
+            android:name=".JustSeeHomeActivity"
+            android:label="@string/title_activity_just_see_home"
+            android:theme="@style/AppTheme.Base">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
