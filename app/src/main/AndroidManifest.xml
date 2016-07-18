@@ -13,15 +13,15 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/AppTheme.Base">
+            android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name=".daxiang.ui.DaXiangInfoActivity"
-            android:theme="@style/AppTheme.Base" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".JustSeeHomeActivity"
             android:label="@string/title_activity_just_see_home"
-            android:theme="@style/AppTheme.Base">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
