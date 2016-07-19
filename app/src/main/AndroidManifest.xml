@@ -13,13 +13,13 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".daxiang.ui.DaXiangInfoActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".JustSeeHomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_just_see_home"
             android:theme="@style/AppTheme">
             <intent-filter>
