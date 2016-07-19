@@ -1,10 +1,7 @@
 <resources>
     <string name="app_name">JustSee</string>
     <string name="read_num">阅读量：</string>
-    <string name="title_activity_just_see_home">JustSeeHomeActivity</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
 </resources>

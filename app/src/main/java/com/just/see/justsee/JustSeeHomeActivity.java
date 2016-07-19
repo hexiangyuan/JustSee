@@ -103,6 +103,5 @@ public class JustSeeHomeActivity extends AppCompatActivity
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Logger.d("onConfigurationChanged");
     }
 }
