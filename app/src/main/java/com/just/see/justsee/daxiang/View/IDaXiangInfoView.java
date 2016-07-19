@@ -1,6 +1,6 @@
 package com.just.see.justsee.daxiang.View;
 
-import com.just.see.justsee.JsonBean.daxiang.DaXiangInfo;
+import com.just.see.justsee.jsonBean.daxiang.DaXiangInfo;
 import com.just.see.justsee.base.BaseView;
 
 /**

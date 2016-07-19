@@ -1,7 +1,7 @@
 package com.just.see.justsee.api.service;
 
-import com.just.see.justsee.JsonBean.daxiang.DaXiangInfo;
-import com.just.see.justsee.JsonBean.daxiang.DaXiangList;
+import com.just.see.justsee.jsonBean.daxiang.DaXiangInfo;
+import com.just.see.justsee.jsonBean.daxiang.DaXiangList;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

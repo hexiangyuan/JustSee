@@ -1,5 +1,6 @@
 package com.just.see.justsee;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.just.see.justsee.daxiang.ui.DaXiangFragment;
+import com.just.see.justsee.qiushibaike.ui.QBListActivity;
 import com.orhanobut.logger.Logger;
 
 public class JustSeeHomeActivity extends AppCompatActivity
@@ -84,7 +86,8 @@ public class JustSeeHomeActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            Intent i = new Intent(this, QBListActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

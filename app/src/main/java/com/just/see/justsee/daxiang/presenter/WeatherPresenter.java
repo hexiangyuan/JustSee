@@ -1,6 +1,6 @@
 package com.just.see.justsee.daxiang.presenter;
 
-import com.just.see.justsee.JsonBean.weather.WeatherBean;
+import com.just.see.justsee.jsonBean.weather.WeatherBean;
 import com.just.see.justsee.base.BasePresenter;
 import com.just.see.justsee.daxiang.View.IDaXiangListView;
 import com.just.see.justsee.http.WeatherHttpMethod;
