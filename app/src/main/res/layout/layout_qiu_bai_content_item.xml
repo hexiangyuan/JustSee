@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_head_portrait"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/test" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/TextBlack14Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/iv_head_portrait"
+            android:lines="1"
+            android:maxLength="16"
+            tools:text="hhh" />
+
+        <TextView
+            android:id="@+id/time"
+            style="@style/TextGray12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            tools:text="1小时" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_content"
+        style="@style/TextBlack14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="老J又泡了一妹子，叫我作陪。
+席间，我煽风点火，老J借酒发挥，直接给妹子按到墙上准备强行壁咚。
+结果妹子楚楚可怜的看着他:哥……放过我吧……我上有老，下有小，中间还有老公嗷嗷待哺……
+一口老酒喷成绚丽的彩虹……" />
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:src="@mipmap/test" />
+
+</LinearLayout>

@@ -9,4 +9,8 @@
     <color name="gray9">#999999</color>
     <color name="divider_line">#EAEAEA</color>
     <color name="daxiang_bg">#FFF5FAF6</color>
+    <!--87% black-->
+    <color name="black87">#212121</color>
+    <!--54% black-->
+    <color name="black54">#757575</color>
 </resources>

@@ -10,6 +10,7 @@ public class QBUrl extends Url {
 //    GET
     //头像Url
 //    http://pic.qiushibaike.com/system/avtnew/1458/14588028/medium/20141210115153.jpg
+//    http://pic.qiushibaike.com/system/pictures/11704/117040118/medium/app117033622.jpg
     public static final String QB_URL = "http://m2.qiushibaike.com/";
     public static final String QB_HEAD_ICON_URL = "http://pic.qiushibaike.com/system/avtnew/1458/14588028/medium/";
 
