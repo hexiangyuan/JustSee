@@ -28,8 +28,8 @@ public class QBHttpMethod {
     }
 
 
-    public Subscription loadQBListByCategory(String categoty, int page, int count, Subscriber<QBContent> subscriber) {
-        return service.getContentByCategory(categoty, page, count)
+    public Subscription loadQBListByCategory(String category, int page, int count, Subscriber<QBContent> subscriber) {
+        return service.getContentByCategory(category, page, count)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

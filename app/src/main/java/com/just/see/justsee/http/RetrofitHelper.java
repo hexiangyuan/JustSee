@@ -1,5 +1,7 @@
 package com.just.see.justsee.http;
 
+import com.just.see.justsee.util.HttpLoggerInterceptor;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -32,8 +34,8 @@ public class RetrofitHelper {
 
     private static OkHttpClient getClient() {
         if (client == null) {
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            HttpLoggerInterceptor interceptor = new HttpLoggerInterceptor();
+            interceptor.setLevel(HttpLoggerInterceptor.Level.BODY);
             client = new OkHttpClient.Builder()
                     .addInterceptor(interceptor)
                     .retryOnConnectionFailure(true)

@@ -18,7 +18,6 @@ import android.view.View;
 
 import com.just.see.justsee.daxiang.ui.DaXiangFragment;
 import com.just.see.justsee.qiushibaike.ui.QBListActivity;
-import com.orhanobut.logger.Logger;
 
 public class JustSeeHomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,7 +25,6 @@ public class JustSeeHomeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.d("onCreate");
         setContentView(R.layout.activity_just_see_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
