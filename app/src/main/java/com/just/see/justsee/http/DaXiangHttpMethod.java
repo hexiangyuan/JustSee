@@ -1,7 +1,7 @@
 package com.just.see.justsee.http;
 
-import com.just.see.justsee.jsonBean.daxiang.DaXiangInfo;
-import com.just.see.justsee.jsonBean.daxiang.DaXiangList;
+import com.just.see.justsee.json.daxiang.DaXiangInfo;
+import com.just.see.justsee.json.daxiang.DaXiangList;
 import com.just.see.justsee.api.urls.DaXiangUrl;
 import com.just.see.justsee.api.service.DaXiangService;
 import com.trello.rxlifecycle.components.support.RxFragment;

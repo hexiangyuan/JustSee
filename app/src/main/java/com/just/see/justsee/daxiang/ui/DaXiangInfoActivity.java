@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.just.see.justsee.jsonBean.daxiang.DaXiangInfo;
+import com.just.see.justsee.json.daxiang.DaXiangInfo;
 import com.just.see.justsee.R;
 import com.just.see.justsee.base.JustSeeActivity;
 import com.just.see.justsee.daxiang.View.IDaXiangInfoView;

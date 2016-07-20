@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.just.see.justsee.jsonBean.daxiang.DaXiangList;
-import com.just.see.justsee.jsonBean.weather.WeatherBean;
+import com.just.see.justsee.json.daxiang.DaXiangList;
+import com.just.see.justsee.json.weather.WeatherBean;
 import com.just.see.justsee.R;
 import com.just.see.justsee.util.DateFormat;
 import com.just.see.justsee.util.Image;

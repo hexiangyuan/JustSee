@@ -1,7 +1,7 @@
 package com.just.see.justsee.daxiang.View;
 
-import com.just.see.justsee.jsonBean.daxiang.DaXiangList;
-import com.just.see.justsee.jsonBean.weather.WeatherBean;
+import com.just.see.justsee.json.daxiang.DaXiangList;
+import com.just.see.justsee.json.weather.WeatherBean;
 import com.just.see.justsee.base.BaseView;
 
 /**

@@ -1,4 +1,4 @@
-package com.just.see.justsee.jsonBean.weather;
+package com.just.see.justsee.json.weather;
 
 import java.util.List;
 

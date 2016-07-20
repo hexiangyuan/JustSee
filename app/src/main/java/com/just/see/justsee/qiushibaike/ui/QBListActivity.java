@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.just.see.justsee.R;
 import com.just.see.justsee.base.JustSeeActivity;
-import com.just.see.justsee.jsonBean.QBBean.QBContent;
+import com.just.see.justsee.json.QBBean.QBContent;
 import com.just.see.justsee.qiushibaike.presenter.QBListPresenter;
 import com.just.see.justsee.qiushibaike.view.IQBListView;
 

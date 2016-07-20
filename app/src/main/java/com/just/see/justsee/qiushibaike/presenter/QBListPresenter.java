@@ -1,7 +1,7 @@
 package com.just.see.justsee.qiushibaike.presenter;
 
 import com.just.see.justsee.base.BasePresenter;
-import com.just.see.justsee.jsonBean.QBBean.QBContent;
+import com.just.see.justsee.json.QBBean.QBContent;
 import com.just.see.justsee.qiushibaike.model.QBHttpMethod;
 import com.just.see.justsee.qiushibaike.view.IQBListView;
 

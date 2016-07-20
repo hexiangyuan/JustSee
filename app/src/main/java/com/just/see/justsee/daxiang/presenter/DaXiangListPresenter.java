@@ -1,6 +1,6 @@
 package com.just.see.justsee.daxiang.presenter;
 
-import com.just.see.justsee.jsonBean.daxiang.DaXiangList;
+import com.just.see.justsee.json.daxiang.DaXiangList;
 import com.just.see.justsee.daxiang.View.IDaXiangListView;
 import com.just.see.justsee.http.DaXiangHttpMethod;
 import com.trello.rxlifecycle.components.support.RxFragment;

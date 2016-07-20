@@ -1,4 +1,4 @@
-package com.just.see.justsee.jsonBean.QBBean;
+package com.just.see.justsee.json.QBBean;
 
 import java.io.Serializable;
 import java.util.List;

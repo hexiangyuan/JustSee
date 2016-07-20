@@ -1,6 +1,6 @@
 package com.just.see.justsee.api.service;
 
-import com.just.see.justsee.jsonBean.QBBean.QBContent;
+import com.just.see.justsee.json.QBBean.QBContent;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;

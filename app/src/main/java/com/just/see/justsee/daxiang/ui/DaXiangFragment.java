@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.just.see.justsee.jsonBean.daxiang.DaXiangList;
-import com.just.see.justsee.jsonBean.weather.WeatherBean;
+import com.just.see.justsee.json.daxiang.DaXiangList;
+import com.just.see.justsee.json.weather.WeatherBean;
 import com.just.see.justsee.R;
 import com.just.see.justsee.base.JustSeeFragment;
 import com.just.see.justsee.daxiang.View.IDaXiangListView;

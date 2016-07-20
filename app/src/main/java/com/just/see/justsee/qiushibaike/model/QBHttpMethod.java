@@ -3,7 +3,7 @@ package com.just.see.justsee.qiushibaike.model;
 import com.just.see.justsee.api.service.QBService;
 import com.just.see.justsee.api.urls.QBUrl;
 import com.just.see.justsee.http.RetrofitHelper;
-import com.just.see.justsee.jsonBean.QBBean.QBContent;
+import com.just.see.justsee.json.QBBean.QBContent;
 
 import rx.Subscriber;
 import rx.Subscription;

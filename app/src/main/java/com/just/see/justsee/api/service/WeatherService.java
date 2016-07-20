@@ -1,6 +1,6 @@
 package com.just.see.justsee.api.service;
 
-import com.just.see.justsee.jsonBean.weather.WeatherBean;
+import com.just.see.justsee.json.weather.WeatherBean;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

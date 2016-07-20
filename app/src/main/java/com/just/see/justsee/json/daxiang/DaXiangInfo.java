@@ -1,4 +1,4 @@
-package com.just.see.justsee.jsonBean.daxiang;
+package com.just.see.justsee.json.daxiang;
 
 import java.io.Serializable;
 
