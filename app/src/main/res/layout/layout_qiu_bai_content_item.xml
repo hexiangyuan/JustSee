@@ -38,13 +38,15 @@
     </RelativeLayout>
 
     <TextView
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
         android:id="@+id/tv_content"
         style="@style/TextBlack14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lineSpacingExtra="6dp"
+        android:lineSpacingExtra="2dp"
+        android:paddingBottom="16dp"
+        android:maxLines="8"
+        android:ellipsize="end"
+        android:paddingTop="16dp"
         tools:text="老J又泡了一妹子，叫我作陪。
 席间，我煽风点火，老J借酒发挥，直接给妹子按到墙上准备强行壁咚。
 结果妹子楚楚可怜的看着他:哥……放过我吧……我上有老，下有小，中间还有老公嗷嗷待哺……
@@ -66,8 +68,9 @@
             android:id="@+id/cb_plus"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/shape_circle_color"
-            android:button="null"
+            android:background="@drawable/selector_cb_red_gray"
+            android:button="@null"
+            android:checked="true"
             android:gravity="center"
             android:text="+1"
             android:textColor="@android:color/white" />
@@ -78,8 +81,8 @@
             android:layout_height="30dp"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@id/cb_plus"
-            android:background="@drawable/shape_circle_color"
-            android:button="null"
+            android:background="@drawable/selector_cb_red_gray"
+            android:button="@null"
             android:gravity="center"
             android:text="-1"
             android:textColor="@android:color/white" />

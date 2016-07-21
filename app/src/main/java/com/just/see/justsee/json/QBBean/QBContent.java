@@ -17,7 +17,7 @@ public class QBContent implements Serializable {
 
     public static class ItemsBean {
         public String format;
-        public Object image;
+        public String image;
         public int published_at;
         public String tag;
         public UserBean user;

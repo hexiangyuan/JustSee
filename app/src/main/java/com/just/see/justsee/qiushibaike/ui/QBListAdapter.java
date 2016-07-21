@@ -1,6 +1,8 @@
 package com.just.see.justsee.qiushibaike.ui;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -9,11 +11,13 @@ import android.widget.TextView;
 
 import com.just.see.justsee.R;
 import com.just.see.justsee.json.QBBean.QBContent;
+import com.just.see.justsee.util.Image;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -34,7 +38,8 @@ public class QBListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        if (lists == null || lists.size() == 0) return;
+        ((QBListViewHolder) holder).bindDate(lists.get(position));
     }
 
     @Override
@@ -69,6 +74,32 @@ public class QBListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ButterKnife.bind(this, itemView);
         }
 
+        public void bindDate(QBContent.ItemsBean item) {
+            if (item == null) return;
+            QBContent.ItemsBean.UserBean user = item.user;
+            if (user != null) {
+                Image.loadQBHeadIcon(user.icon, headPortrait);
+                name.setText(user.login);
+            }
+            time.setText(String.valueOf(item.published_at));
+            content.setText(item.content);
+            if (TextUtils.isEmpty(item.image)) {
+                image.setVisibility(View.GONE);
+            } else {
+                image.setVisibility(View.VISIBLE);
+                Image.loadImage(item.image, image);
+            }
+            commentCount.setText(String.valueOf(item.comments_count));
+        }
 
+        @OnClick(R.id.iv_share)
+        public void share(View view) {
+            Snackbar.make(view, "share", Snackbar.LENGTH_LONG).show();
+        }
+
+        @OnClick(R.id.iv_comment)
+        public void comment(View view) {
+            Snackbar.make(view, "comment", Snackbar.LENGTH_LONG).show();
+        }
     }
 }
