@@ -33,17 +33,43 @@ public class SwipRefreshRecyclerView {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                if (layoutManager instanceof LinearLayoutManager) {
-                    ((LinearLayoutManager)layoutManager).findLastVisibleItemPosition();
+                int lastVisiblePos;
+                int totalItemCount;
+                if (layoutManager instanceof GridLayoutManager) {
+                    lastVisiblePos = ((GridLayoutManager) layoutManager).findLastVisibleItemPosition();
+                    totalItemCount = layoutManager.getItemCount();
                 } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-//                    ((StaggeredGridLayoutManager)layoutManager).findLastCompletelyVisibleItemPositions();
+                    StaggeredGridLayoutManager manager = (StaggeredGridLayoutManager) layoutManager;
+                    int[] into = new int[manager.getSpanCount()];
+                    int[] lastVisibleItemPositions = ((StaggeredGridLayoutManager) layoutManager).findLastVisibleItemPositions(into);
+                    lastVisiblePos = finMax(lastVisibleItemPositions);
+                    totalItemCount = layoutManager.getItemCount();
+                } else if (layoutManager instanceof LinearLayoutManager) {
+                    lastVisiblePos = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+                    totalItemCount = layoutManager.getItemCount();
+                } else {
+                    throw new ClassCastException("Unsupported LayoutManager used. Valid ones are LinearLayoutManager, GridLayoutManager and StaggeredGridLayoutManager");
                 }
-                loadMore.loadMoreListenner();
+                if (lastVisiblePos >= totalItemCount - 1 && recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE && lastVisiblePos > 0) {
+                    loadMore.loadMoreListener();
+                }
             }
         });
     }
 
-    interface LoadMore {
-        void loadMoreListenner();
+    private int finMax(int[] itemPositions) {
+        int size = itemPositions.length;
+        int temp = itemPositions[0];
+        for (int i = 0; i < size; i++) {
+            if (itemPositions[i] > temp) {
+                temp = itemPositions[i];
+            }
+        }
+        return temp;
     }
+
+    interface LoadMore {
+        void loadMoreListener();
+    }
+
 }
