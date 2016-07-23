@@ -13,13 +13,42 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 public class SwipRefreshRecyclerView {
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout.OnRefreshListener refreshListener;
+    private LoadMoreListener loadMoreListener;
 
-    public SwipRefreshRecyclerView(SwipeRefreshLayout refreshLayout,
-                                   RecyclerView recyclerView,
-                                   SwipeRefreshLayout.OnRefreshListener refreshListener,
-                                   final SwipRefreshRecyclerView.LoadMore loadMore) {
+    public SwipeRefreshLayout.OnRefreshListener getRefreshListener() {
+        return refreshListener;
+    }
+
+    public void setRefreshListener(SwipeRefreshLayout.OnRefreshListener refreshListener) {
+        this.refreshListener = refreshListener;
+    }
+
+    public LoadMoreListener getLoadMoreListener() {
+        return loadMoreListener;
+    }
+
+    public void setLoadMoreListener(LoadMoreListener loadMoreListener) {
+        this.loadMoreListener = loadMoreListener;
+    }
+
+    public SwipeRefreshLayout getRefreshLayout() {
+        return refreshLayout;
+    }
+
+    public void setRefreshLayout(SwipeRefreshLayout refreshLayout) {
         this.refreshLayout = refreshLayout;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
+    }
+
+    public SwipRefreshRecyclerView() {
         if (refreshLayout == null || recyclerView == null)
             throw new NullPointerException("RecyclerView 和 SwipeRefreshLayout不能为空");
         refreshLayout.setOnRefreshListener(refreshListener);
@@ -51,7 +80,7 @@ public class SwipRefreshRecyclerView {
                     throw new ClassCastException("Unsupported LayoutManager used. Valid ones are LinearLayoutManager, GridLayoutManager and StaggeredGridLayoutManager");
                 }
                 if (lastVisiblePos >= totalItemCount - 1 && recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE && lastVisiblePos > 0) {
-                    loadMore.loadMoreListener();
+                    loadMoreListener.onLoadMore();
                 }
             }
         });
@@ -68,8 +97,36 @@ public class SwipRefreshRecyclerView {
         return temp;
     }
 
-    interface LoadMore {
-        void loadMoreListener();
+    interface LoadMoreListener {
+        void onLoadMore();
     }
 
+
+    public static class Builder {
+        SwipRefreshRecyclerView swipRefreshRecyclerView;
+
+        public Builder setRecyclerView(RecyclerView recyclerView) {
+            swipRefreshRecyclerView.setRecyclerView(recyclerView);
+            return this;
+        }
+
+        public Builder setSwipRefreshLayout(SwipeRefreshLayout swipRefreshLayout) {
+            swipRefreshRecyclerView.setRefreshLayout(swipRefreshLayout);
+            return this;
+        }
+
+        public Builder onRefreshing(SwipeRefreshLayout.OnRefreshListener refreshListener) {
+            swipRefreshRecyclerView.setRefreshListener(refreshListener);
+            return this;
+        }
+
+        public Builder onLoadMore(LoadMoreListener loadMore) {
+            swipRefreshRecyclerView.setLoadMoreListener(loadMore);
+            return this;
+        }
+
+        public void build() {
+            this.swipRefreshRecyclerView = new SwipRefreshRecyclerView();
+        }
+    }
 }
