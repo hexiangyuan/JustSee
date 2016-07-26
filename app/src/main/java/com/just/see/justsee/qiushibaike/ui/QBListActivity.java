@@ -11,6 +11,7 @@ import com.just.see.justsee.base.JustSeeActivity;
 import com.just.see.justsee.json.QBBean.QBContent;
 import com.just.see.justsee.qiushibaike.presenter.QBListPresenter;
 import com.just.see.justsee.qiushibaike.view.IQBListView;
+import com.just.see.justsee.util.SwipeRefreshRecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +28,9 @@ public class QBListActivity extends JustSeeActivity implements IQBListView {
     SwipeRefreshLayout refreshLayout;
     QBListAdapter adapter;
     QBListPresenter listPresenter;
+    SwipeRefreshRecyclerView.Builder builder;
+    private int page = 1;
+    private final int PAGE_COUNT = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,20 @@ public class QBListActivity extends JustSeeActivity implements IQBListView {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
         listPresenter = new QBListPresenter(this);
-        listPresenter.getQBListByCategory("suggest", 1, 20);
+        listPresenter.getQBListByCategory("suggest", 1, PAGE_COUNT);
+        builder = new SwipeRefreshRecyclerView.Builder();
+        builder.setRecyclerView(recyclerView).setSwipeRefreshLayout(refreshLayout).setOnLoadMore(new SwipeRefreshRecyclerView.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                listPresenter.getQBListByCategory("suggest", page, PAGE_COUNT);
+            }
+        }).setOnRefreshing(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page = 1;
+                listPresenter.getQBListByCategory("suggest", page, PAGE_COUNT);
+            }
+        }).build();
     }
 
     @Override
@@ -58,12 +75,19 @@ public class QBListActivity extends JustSeeActivity implements IQBListView {
 
     @Override
     public void showCompleted() {
-
+        builder.finishLoad();
     }
 
     @Override
     public void listLoaded(QBContent qbContent) {
-        adapter.setLists(qbContent.items);
-        adapter.notifyDataSetChanged();
+        if (qbContent != null && qbContent.items.size() > 0) {
+            if (page == 1) {
+                adapter.setLists(qbContent.items);
+                page++;
+            } else if (page > 1) {
+                adapter.addLists(qbContent.items);
+                page++;
+            }
+        }
     }
 }

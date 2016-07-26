@@ -10,45 +10,13 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
  * Created by 何祥源 on 16/7/21.
  * Desc:
  */
-public class SwipRefreshRecyclerView {
-    private SwipeRefreshLayout refreshLayout;
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout.OnRefreshListener refreshListener;
-    private LoadMoreListener loadMoreListener;
+public class SwipeRefreshRecyclerView {
+    private boolean isLoading;//记录是正在Loading；
 
-    public SwipeRefreshLayout.OnRefreshListener getRefreshListener() {
-        return refreshListener;
-    }
-
-    public void setRefreshListener(SwipeRefreshLayout.OnRefreshListener refreshListener) {
-        this.refreshListener = refreshListener;
-    }
-
-    public LoadMoreListener getLoadMoreListener() {
-        return loadMoreListener;
-    }
-
-    public void setLoadMoreListener(LoadMoreListener loadMoreListener) {
-        this.loadMoreListener = loadMoreListener;
-    }
-
-    public SwipeRefreshLayout getRefreshLayout() {
-        return refreshLayout;
-    }
-
-    public void setRefreshLayout(SwipeRefreshLayout refreshLayout) {
-        this.refreshLayout = refreshLayout;
-    }
-
-    public RecyclerView getRecyclerView() {
-        return recyclerView;
-    }
-
-    public void setRecyclerView(RecyclerView recyclerView) {
-        this.recyclerView = recyclerView;
-    }
-
-    public SwipRefreshRecyclerView() {
+    public SwipeRefreshRecyclerView(RecyclerView recyclerView,
+                                    SwipeRefreshLayout refreshLayout,
+                                    final LoadMoreListener loadMoreListener,
+                                    SwipeRefreshLayout.OnRefreshListener refreshListener) {
         if (refreshLayout == null || recyclerView == null)
             throw new NullPointerException("RecyclerView 和 SwipeRefreshLayout不能为空");
         refreshLayout.setOnRefreshListener(refreshListener);
@@ -56,11 +24,6 @@ public class SwipRefreshRecyclerView {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
                 RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
                 int lastVisiblePos;
                 int totalItemCount;
@@ -79,9 +42,20 @@ public class SwipRefreshRecyclerView {
                 } else {
                     throw new ClassCastException("Unsupported LayoutManager used. Valid ones are LinearLayoutManager, GridLayoutManager and StaggeredGridLayoutManager");
                 }
-                if (lastVisiblePos >= totalItemCount - 1 && recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE && lastVisiblePos > 0) {
+                if (lastVisiblePos >= totalItemCount - 1
+                        && newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisiblePos > 0
+                        && !isLoading
+                        ) {
+                    isLoading = true;
                     loadMoreListener.onLoadMore();
                 }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
             }
         });
     }
@@ -97,36 +71,49 @@ public class SwipRefreshRecyclerView {
         return temp;
     }
 
-    interface LoadMoreListener {
+    public interface LoadMoreListener {
         void onLoadMore();
     }
 
 
     public static class Builder {
-        SwipRefreshRecyclerView swipRefreshRecyclerView;
+        SwipeRefreshRecyclerView swipeRefreshRecyclerView;
+        RecyclerView recyclerView;
+        SwipeRefreshLayout refreshLayout;
+        LoadMoreListener loadMoreListener;
+        SwipeRefreshLayout.OnRefreshListener refreshListener;
+
 
         public Builder setRecyclerView(RecyclerView recyclerView) {
-            swipRefreshRecyclerView.setRecyclerView(recyclerView);
+            this.recyclerView = recyclerView;
             return this;
         }
 
-        public Builder setSwipRefreshLayout(SwipeRefreshLayout swipRefreshLayout) {
-            swipRefreshRecyclerView.setRefreshLayout(swipRefreshLayout);
+        public Builder setSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout) {
+            this.refreshLayout = swipeRefreshLayout;
             return this;
         }
 
-        public Builder onRefreshing(SwipeRefreshLayout.OnRefreshListener refreshListener) {
-            swipRefreshRecyclerView.setRefreshListener(refreshListener);
+        public Builder setOnRefreshing(SwipeRefreshLayout.OnRefreshListener refreshListener) {
+            this.refreshListener = refreshListener;
             return this;
         }
 
-        public Builder onLoadMore(LoadMoreListener loadMore) {
-            swipRefreshRecyclerView.setLoadMoreListener(loadMore);
+        public Builder setOnLoadMore(LoadMoreListener loadMore) {
+            this.loadMoreListener = loadMore;
+            return this;
+        }
+
+        public Builder finishLoad() {
+            if (swipeRefreshRecyclerView == null) {
+                throw new RuntimeException("在finish 之前请先build;");
+            }
+            swipeRefreshRecyclerView.isLoading = false;
             return this;
         }
 
         public void build() {
-            this.swipRefreshRecyclerView = new SwipRefreshRecyclerView();
+            this.swipeRefreshRecyclerView = new SwipeRefreshRecyclerView(recyclerView, refreshLayout, loadMoreListener, refreshListener);
         }
     }
 }

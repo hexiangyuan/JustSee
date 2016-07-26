@@ -29,6 +29,16 @@ public class QBListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void setLists(List<QBContent.ItemsBean> lists) {
         this.lists = lists;
+        notifyDataSetChanged();
+    }
+
+    public void addLists(List<QBContent.ItemsBean> lists) {
+        if (lists == null) {
+            setLists(lists);
+            return;
+        }
+        this.lists.addAll(lists);
+        notifyItemRangeInserted(getItemCount() - lists.size(), lists.size());
     }
 
     @Override
