@@ -88,7 +88,7 @@ public class QBListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (item == null) return;
             QBContent.ItemsBean.UserBean user = item.user;
             if (user != null) {
-                Image.loadQBHeadIcon(user.icon, headPortrait);
+                Image.loadQBHeadIcon(String.valueOf(user.uid), user.icon, headPortrait);
                 name.setText(user.login);
             }
             time.setText(String.valueOf(item.published_at));
@@ -97,7 +97,7 @@ public class QBListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 image.setVisibility(View.GONE);
             } else {
                 image.setVisibility(View.VISIBLE);
-                Image.loadImage(item.image, image);
+                Image.loadQBImage(String.valueOf(item.id), item.image, image);
             }
             commentCount.setText(String.valueOf(item.comments_count));
         }

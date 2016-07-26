@@ -22,15 +22,20 @@ public class Image {
         }
     }
 
-    public static void loadQBHeadIcon(String url, ImageView iv) {
+    public static void loadQBHeadIcon(String uid, String url, ImageView iv) {
         if (iv != null) {
             Picasso.with(iv.getContext())
-                    .load(QBUrl.getQBHeadIconUrl(url))
+                    .load(QBUrl.getQBHeadIconUrl(uid, url))
                     .into(iv);
-           /* Glide.with(iv.getContext())
-                    .load(url)
-//                .placeholder(R.mipmap.ic_launcher)
-                    .into(iv);*/
         }
     }
+
+    public static void loadQBImage(String id, String url, ImageView iv) {
+        if (iv != null) {
+            Picasso.with(iv.getContext())
+                    .load(QBUrl.getQBUserImage(id, url))
+                    .into(iv);
+        }
+    }
+
 }
