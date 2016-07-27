@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +17,7 @@ import android.view.View;
 
 import com.just.see.justsee.daxiang.ui.DaXiangFragment;
 import com.just.see.justsee.qiushibaike.ui.QBListActivity;
+import com.just.see.justsee.reactnative.JustSeeReactActivity;
 
 public class JustSeeHomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,8 +33,7 @@ public class JustSeeHomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(JustSeeHomeActivity.this, JustSeeReactActivity.class));
             }
         });
 
