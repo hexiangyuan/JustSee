@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/hexiangyuan/JustSee/issues"
   },
-  "homepage": "https://github.com/hexiangyuan/JustSee#readme"
+  "homepage": "https://github.com/hexiangyuan/JustSee#readme",
+  "dependencies": {
+    "react-native": "^0.30.0"
+  }
 }
