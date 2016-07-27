@@ -1,10 +1,10 @@
 ext {
     supprotVersion = "24.0.0"
 
-    android = [compileSdkVersion: 23,
-               buildToolsVersion: "23.0.1",
+    android = [compileSdkVersion: 24,
+               buildToolsVersion: "24.0.0",
                applicationId    : "com.demo.meizhi.easymeizhi",
-               minSdkVersion    : 14,
+               minSdkVersion    : 16,
                targetSdkVersion : 23,
                versionCode      : 100,
                versionName      : "1.0.0"]
