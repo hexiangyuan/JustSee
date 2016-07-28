@@ -1,5 +1,6 @@
 package com.just.see.justsee.reactnative;
 
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -16,24 +17,26 @@ import com.just.see.justsee.BuildConfig;
  * Desc:
  */
 public class JustSeeReactActivity extends Activity implements DefaultHardwareBackBtnHandler {
-    private ReactRootView reactRootView;
-    private ReactInstanceManager reactInstanceManager;
+    private ReactRootView mReactRootView;
+    private ReactInstanceManager mReactInstanceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        reactRootView = new ReactRootView(this);
-        reactInstanceManager = ReactInstanceManager.builder()
+        mReactRootView = new ReactRootView(this);
+        mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
                 .setBundleAssetName("index.android.bundle")
                 .setJSMainModuleName("index.android")
                 .addPackage(new MainReactPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
+                .setUseOldBridge(true)
                 .build();
-        reactRootView.startReactApplication(reactInstanceManager, "HelloWorld", null);
-        setContentView(reactRootView);
+        mReactRootView.startReactApplication(mReactInstanceManager, "JustSee", null);
+
+        setContentView(mReactRootView);
     }
 
     @Override
@@ -44,31 +47,34 @@ public class JustSeeReactActivity extends Activity implements DefaultHardwareBac
     @Override
     protected void onPause() {
         super.onPause();
-        if (reactInstanceManager != null) {
-            reactInstanceManager.onPause();
-        }
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (reactInstanceManager != null) {
-            reactInstanceManager.onDestroy();
+        if (mReactInstanceManager != null) {
+            mReactInstanceManager.onHostPause();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (reactInstanceManager != null) {
-            reactInstanceManager.onResume(this, this);
+
+        if (mReactInstanceManager != null) {
+            mReactInstanceManager.onHostResume(this, this);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mReactInstanceManager != null) {
+            mReactInstanceManager.onHostDestroy();
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (reactInstanceManager != null) {
-            reactInstanceManager.onBackPressed();
+        if (mReactInstanceManager != null) {
+            mReactInstanceManager.onBackPressed();
         } else {
             super.onBackPressed();
         }
@@ -76,8 +82,8 @@ public class JustSeeReactActivity extends Activity implements DefaultHardwareBac
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_MENU && reactInstanceManager != null){
-            reactInstanceManager.showDevOptionsDialog();
+        if (keyCode == KeyEvent.KEYCODE_MENU && mReactInstanceManager != null) {
+            mReactInstanceManager.showDevOptionsDialog();
             return true;
         }
         return super.onKeyUp(keyCode, event);
