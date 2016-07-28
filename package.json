@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/hexiangyuan/JustSee#readme",
   "dependencies": {
+    "react": "^15.2.1",
     "react-native": "^0.30.0"
   }
 }
