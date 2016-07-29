@@ -25,21 +25,47 @@ public class JustSeeReactActivity extends Activity implements DefaultHardwareBac
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
 
-    public static int OVERLAY_PERMISSION_REQ_CODE = 1234;
+
+    private static final int OVERLAY_PERMISSION_REQUEST_CODE = 2;
 
     @TargetApi(Build.VERSION_CODES.M)
-    public void someMethod() {
+    private void askForOverlayPermission() {
+        if (!BuildConfig.DEBUG || android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return;
+        }
+
         if (!Settings.canDrawOverlays(this)) {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+            Intent settingsIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                     Uri.parse("package:" + getPackageName()));
-            startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+            startActivityForResult(settingsIntent, OVERLAY_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == OVERLAY_PERMISSION_REQUEST_CODE) {
+            if (Settings.canDrawOverlays(this)) {
+                init();
+            }
         }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        someMethod();
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            init();
+        } else {
+            if(Settings.canDrawOverlays(this)){
+                init();
+            }else{
+                askForOverlayPermission();
+            }
+        }
+    }
+
+    private void init() {
         mReactRootView = new ReactRootView(this);
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
