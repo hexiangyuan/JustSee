@@ -1,6 +1,8 @@
-import React, {
+'use strict'
+
+import React from 'react';
+import {
     AppRegistry,
-    Component,
     Image,
     ListView,
     StyleSheet,
@@ -10,7 +12,7 @@ import React, {
 
 var REQUEST_URL = 'http://www.65emall.net:8051/SG_android.ashx';
 
-class JustSee extends Component {
+class JustSee extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
