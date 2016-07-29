@@ -3,7 +3,6 @@ package com.just.see.justsee;
 import android.app.Application;
 
 import com.orhanobut.logger.*;
-import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by xiyoung on 2016/7/8.
@@ -20,14 +19,11 @@ public class JustSeeApplication extends Application {
     }
 
     private void initEveryThing() {
-        //内存泄漏的
-        LeakCanary.install(this);
         //Logger Init
         LogLevel logLevel = BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE;
-        Logger
-                .init("JustSee")                 // default PRETTYLOGGER or use just init()
-                .methodCount(0)                 // default 2
-                .hideThreadInfo()               // default shown
+        Logger.init("JustSee")               // default PRETTYLOGGER or use just init()
+                .methodCount(0)               // default 2
+                .hideThreadInfo()             // default shown
                 .logLevel(logLevel);        // default LogLevel.FULL
 
 
