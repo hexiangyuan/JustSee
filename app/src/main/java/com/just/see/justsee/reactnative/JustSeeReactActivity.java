@@ -1,8 +1,13 @@
 package com.just.see.justsee.reactnative;
 
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.KeyEvent;
 
 import com.facebook.react.LifecycleState;
@@ -20,10 +25,21 @@ public class JustSeeReactActivity extends Activity implements DefaultHardwareBac
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
 
+    public static int OVERLAY_PERMISSION_REQ_CODE = 1234;
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public void someMethod() {
+        if (!Settings.canDrawOverlays(this)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        someMethod();
         mReactRootView = new ReactRootView(this);
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
