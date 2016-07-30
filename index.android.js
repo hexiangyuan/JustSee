@@ -1,100 +1,27 @@
 'use strict'
-import React, {Component}from 'React';
-import {
-    AppRegistry,
-    StyleSheet,
-    PiexlRatio,
-    Text,
-    View,
-} from 'react-native';
+import React from 'react';
+    import {
+        View,
+        Navigator,
+        AppRegistry,
+    } from 'react-native';
+    import FirstPageComponent from './FirstPageComponent';
 
-const Header = require('./header');
-
-class JustSee extends React.Component {
-    render() {
-        return (
-            <View>
-                <Header></Header>
-                <List title = 'title1'></List>
-                <List title = 'title1'></List>
-                <List title = 'title1'></List>
-                <List title = 'title1'></List>
-                <ImportantNews news={[
-                    'news0', 'news1', 'news3', 'news4', 'news1news1news1news1news1news1news1news1news1news1news1news1news1news1'
-                ]}></ImportantNews>
-            </View>
-        );
-    }
-}
-
-class List extends Component {
-    render() {
-        return (
-            <View style={styles.listItem}>
-                <Text style = {styles.listItemFont}>{this.props.title}</Text>
-            </View>
-
-        );
-    }
-
-}
-
-class ImportantNews extends Component {
-    show(title) {
-        alert(title);
-    }
-
-    render() {
-        var news = [];
-        for (var i in this.props.news) {
-            var text = (
-                <Text
-                    onPress={this.show.bind(this, this.props.news[i]) }
-                    numberOfLines={2}
-                    style = {styles.listItem}>
-                    {this.props.news[i]}</Text>
-
+     class JustSee extends React.Component {
+        render() {
+            let defaultName = 'FirstPageComponent';
+            let defaultComponent = FirstPageComponent;
+            return (
+            <Navigator
+              initialRoute={{ name: defaultName, component: defaultComponent }}
+              configureScene={(route) => {
+                return Navigator.SceneConfigs.VerticalDownSwipeJump;
+              }}
+              renderScene={(route, navigator) => {
+                let Component = route.component;
+                return <Component {...route.params} navigator={navigator} />
+              }} />
             );
-            news.push(text);
         }
-
-        return (
-            <View style = {styles.flex}>
-                <Text style = {styles.newsTitle}>今日要闻</Text>
-                {news}
-            </View>
-
-        );
     }
-}
-
-var styles = StyleSheet.create({
-    flex: {
-        flex: 1,
-    },
-
-    listItem: {
-        height: 40,
-        marginLeft: 12,
-        marginRight: 12,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
-        justifyContent: 'center',
-    },
-
-    listItemFont: {
-        fontSize: 16,
-    },
-
-    newsTitle: {
-        height: 40,
-        marginLeft: 12,
-        marginRight: 12,
-        fontSize:20,
-        color:'#CD1D1C',
-    },
-
-
-});
-
-AppRegistry.registerComponent('JustSee', () => JustSee);
+  AppRegistry.registerComponent('JustSee', () => JustSee);

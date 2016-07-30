@@ -7,18 +7,41 @@ import {
     PiexlRatio,
     Text,
     View,
+    TouchableOpacity,
 } from 'react-native';
 
 
-class Header extends React.Component {
+export default class Header extends React.Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+          id:null,
+        };
+    }
+
+componentDidMount(){
+  this.setState({
+    id:this.props.id
+  });
+}
+
+_pressButton(){
+  const {navigator} = this.props;
+  if(navigator){
+      navigator.pop();
+  }
+}
+
     render() {
         return (
             <View style={styles.flex}>
+            <TouchableOpacity onPress={this._pressButton.bind(this)}>
                 <Text style={styles.font}>
-                    <Text style={styles.fontWangyi}>网易</Text>
+                    <Text style={styles.fontWangyi}>网易{this.state.id}</Text>
                     <Text style={styles.fontXinWen}>新闻</Text>
                     <Text style={styles.font}>有态度“</Text>
                 </Text>
+              </TouchableOpacity>
             </View>
         );
     }
@@ -76,5 +99,3 @@ var styles = StyleSheet.create({
     },
 
 });
-
-module.exports = Header; 
