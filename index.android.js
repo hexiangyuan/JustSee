@@ -1,139 +1,100 @@
 'use strict'
-
-import React from 'react';
+import React, {Component}from 'React';
 import {
     AppRegistry,
-    Image,
-    ListView,
     StyleSheet,
+    PiexlRatio,
     Text,
     View,
 } from 'react-native';
 
-var REQUEST_URL = 'http://www.65emall.net:8051/SG_android.ashx';
+const Header = require('./header');
 
 class JustSee extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2,
-            }),
-            loaded: false,
-        };
-    }
-
-    componentDidMount() {
-        this.fetchData();
-    }
-
-    fetchData() {
-        fetch(REQUEST_URL, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: '15',
-                params: [0, 0, 20],
-                method: 'Category.GetPrimeProducts'
-            })
-        })
-            .then((response) => response.json())
-            .then((responseData) => {
-                this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(responseData.result),
-                    loaded: true,
-                });
-            })
-            .done();
-    }
-
     render() {
-        if (!this.state.loaded) {
-            return this.renderLoadingView();
-        }
-
         return (
-            <ListView
-                dataSource={this.state.dataSource}
-                renderRow={this.renderMovie}
-                contentContainerStyle={styles.listView}
-            />
-        );
-    }
-
-    renderLoadingView() {
-        return (
-            <View style={styles.container}>
-                <Text>
-                    Loading movies...
-                </Text>
-            </View>
-        );
-    }
-
-    renderMovie(item) {
-        return (
-            <View style={styles.container_}>
-                <Image
-                    source={{uri: item.picture}}
-                    style={styles.thumbnail_}
-                />
-                <View style={styles.rightContainer}>
-                    <Text style={styles.title_}>{item.name}</Text>
-                    <Text style={styles.price_}>{item.price}</Text>
-                </View>
+            <View>
+                <Header></Header>
+                <List title = 'title1'></List>
+                <List title = 'title1'></List>
+                <List title = 'title1'></List>
+                <List title = 'title1'></List>
+                <ImportantNews news={[
+                    'news0', 'news1', 'news3', 'news4', 'news1news1news1news1news1news1news1news1news1news1news1news1news1news1'
+                ]}></ImportantNews>
             </View>
         );
     }
 }
 
+class List extends Component {
+    render() {
+        return (
+            <View style={styles.listItem}>
+                <Text style = {styles.listItemFont}>{this.props.title}</Text>
+            </View>
+
+        );
+    }
+
+}
+
+class ImportantNews extends Component {
+    show(title) {
+        alert(title);
+    }
+
+    render() {
+        var news = [];
+        for (var i in this.props.news) {
+            var text = (
+                <Text
+                    onPress={this.show.bind(this, this.props.news[i]) }
+                    numberOfLines={2}
+                    style = {styles.listItem}>
+                    {this.props.news[i]}</Text>
+
+            );
+            news.push(text);
+        }
+
+        return (
+            <View style = {styles.flex}>
+                <Text style = {styles.newsTitle}>今日要闻</Text>
+                {news}
+            </View>
+
+        );
+    }
+}
+
 var styles = StyleSheet.create({
-    container: {
+    flex: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    rightContainer: {
-        width:200,
-        flex: 1,
-    },
-    title: {
-        fontSize: 20,
-        marginBottom: 8,
-        textAlign: 'center',
-    },
-    year: {
-        textAlign: 'center',
-    },
-    thumbnail: {
-        width: 53,
-        height: 81,
-    },
-    listView: {
-        flexDirection:'row',
-        flexWrap:'wrap',
-        paddingTop: 20,
-        backgroundColor: '#F5FCFF',
     },
 
-    container_: {
-      padding:8, flexDirection: 'column', justifyContent: 'center', backgroundColor: '#F5fcff',width:180,
+    listItem: {
+        height: 40,
+        marginLeft: 12,
+        marginRight: 12,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+        justifyContent: 'center',
     },
-    title_: {
-        fontSize: 12, marginTop: 8, color: 'black', textAlign: 'left',
+
+    listItemFont: {
+        fontSize: 16,
     },
-    price_: {
-        fontSize: 16, marginTop: 8, color: 'blue', textAlign: 'left',
+
+    newsTitle: {
+        height: 40,
+        marginLeft: 12,
+        marginRight: 12,
+        fontSize:20,
+        color:'#CD1D1C',
     },
-    thumbnail_: {
-        width: 180,
-        height:240,
-    },
+
+
 });
 
 AppRegistry.registerComponent('JustSee', () => JustSee);
