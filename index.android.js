@@ -6,13 +6,13 @@ import {
     AppRegistry,
 } from 'react-native';
 import Search from './search';
+import ViewPager from './viewpager';
 
 class JustSee extends React.Component {
     render() {
-        let defaultName = 'Search';
-        let defaultComponent = Search;
-        return ( <
-            Navigator initialRoute = {
+        let defaultName = 'ViewPager';
+        let defaultComponent = ViewPager;
+        return ( <Navigator initialRoute = {
                 {
                     name: defaultName,
                     component: defaultComponent
