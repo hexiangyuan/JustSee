@@ -4,9 +4,10 @@ import React,{Component}from 'react';
 import {
   View,
   StyleSheet,
+  Text,
 } from 'react-native';
 
-export default ViewPager extends React.Component{
+export default class ViewPager extends React.Component{
   render(){
     return (
         <View>
