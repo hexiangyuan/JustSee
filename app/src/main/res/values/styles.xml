@@ -5,6 +5,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.NoActionBar" parent="AppTheme.Appcompat.NoActionbar" />
+
+    <style name="SplashTheme" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@drawable/bgm_splash</item>
+    </style>
+
     <style name="TextBlack14">
         <item name="android:textColor">@color/black87</item>
         <item name="android:textSize">14sp</item>
@@ -18,4 +24,6 @@
     <style name="TextBlack14Bold" parent="TextBlack14">
         <item name="android:textStyle">bold</item>
     </style>
+
+
 </resources>
