@@ -25,16 +25,18 @@ public class EzbuyPresenter implements EzbuyContract.Presenter {
         this.mEzbuyView = view;
         this.ezbuyModel = new EzbuyModel();
         mSubscriptions = new CompositeSubscription();
+        mEzbuyView.setPresenter(this);
     }
 
     @Override
     public void subscribe() {
+        mEzbuyView.showLoadingProgressBar(true);
         loadProducts(0, 20);
     }
 
     @Override
     public void unsubscribe() {
-
+        mSubscriptions.clear();
     }
 
     @Override
@@ -45,17 +47,19 @@ public class EzbuyPresenter implements EzbuyContract.Presenter {
                 .subscribe(new Subscriber<ArrayList<EzbuyProduct>>() {
                     @Override
                     public void onCompleted() {
-
+                        mEzbuyView.showLoadingProgressBar(false);
+                        mEzbuyView.showLoadMore(false);
+                        mEzbuyView.showRefresh(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        mEzbuyView.showLoadProductError();
                     }
 
                     @Override
                     public void onNext(ArrayList<EzbuyProduct> ezbuyProducts) {
-
+                        mEzbuyView.showProduct(ezbuyProducts);
                     }
                 });
         mSubscriptions.add(subscribe);

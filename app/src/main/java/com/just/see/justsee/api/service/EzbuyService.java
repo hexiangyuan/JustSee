@@ -3,8 +3,10 @@ package com.just.see.justsee.api.service;
 import com.just.see.justsee.json.EzbuyProduct;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
 
@@ -14,6 +16,7 @@ import rx.Observable;
  */
 
 public interface EzbuyService {
-    @POST("http://android.65daigou.com/android.api")
-    Observable<ArrayList<EzbuyProduct>> getEzbuyProducts(@Field("id") int id, @Field("offset") int offset, @Field("limit") int limit, @Field("originCode") String originCode);
+    @FormUrlEncoded
+    @POST("/SG_android.ashx")
+    Observable<ArrayList<EzbuyProduct>> getEzbuyProducts(@FieldMap Map<String,Object> map);
 }

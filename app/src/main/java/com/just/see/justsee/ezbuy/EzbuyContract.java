@@ -13,15 +13,17 @@ import java.util.ArrayList;
 
 public interface EzbuyContract {
 
-    interface View extends IBaseView {
+    interface View extends IBaseView<Presenter> {
 
         void showLoadingProgressBar(boolean show);
 
         void showLoadMore(boolean show);
 
-        void showProduct(ArrayList<EzbuyProduct> products);
+        void showRefresh(boolean show);
 
         void showLoadProductError();
+
+        void showProduct(ArrayList<EzbuyProduct> products);
 
     }
 

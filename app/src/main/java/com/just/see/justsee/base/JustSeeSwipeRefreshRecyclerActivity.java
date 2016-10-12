@@ -11,14 +11,11 @@ import android.support.v7.widget.RecyclerView;
 
 public abstract class JustSeeSwipeRefreshRecyclerActivity extends JustSeeActivity {
 
-    protected RecyclerView recyclerView;
-    protected SwipeRefreshLayout swipeRefreshLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        swipeRefreshLayout = new SwipeRefreshLayout(this);
-        recyclerView = new RecyclerView(this);
+        SwipeRefreshLayout swipeRefreshLayout = new SwipeRefreshLayout(this);
+        RecyclerView recyclerView = new RecyclerView(this);
         recyclerView.setLayoutManager(setLayoutManager());
         swipeRefreshLayout.addView(recyclerView);
         setContentView(swipeRefreshLayout);
