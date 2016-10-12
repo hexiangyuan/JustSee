@@ -115,7 +115,7 @@
             android:layout_toLeftOf="@id/tv_comment_count"
             android:background="@drawable/shape_circle_gray"
             android:padding="4dp"
-            android:src="@drawable/ic_location" />
+            android:src="@mipmap/ic_location" />
     </RelativeLayout>
 
 

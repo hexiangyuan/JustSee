@@ -52,7 +52,7 @@ public class DaXiangListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 break;
             case TYPE_WEATHER:
                 if (bean != null) {
-                    ((WeatherHolder) holder).bind("上海", bean);
+//                    ((WeatherHolder) holder).bind("上海", bean);
                 }
                 break;
             default:
