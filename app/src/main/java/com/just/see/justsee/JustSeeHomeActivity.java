@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.just.see.justsee.daxiang.ui.DaXiangFragment;
+import com.just.see.justsee.ezbuy.EzbuyActivity;
 import com.just.see.justsee.qiushibaike.ui.QBListActivity;
 import com.just.see.justsee.reactnative.JustSeeReactActivity;
 
@@ -38,6 +39,9 @@ public class JustSeeHomeActivity extends AppCompatActivity {
                 return true;
             case R.id.QB:
                 startActivity(new Intent(this, QBListActivity.class));
+                return true;
+            case R.id.ezbuy:
+                startActivity(new Intent(this, EzbuyActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

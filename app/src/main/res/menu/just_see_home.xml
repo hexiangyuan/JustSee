@@ -7,8 +7,13 @@
         android:title="糗事百科"
         app:showAsAction="never" />
     <item
+        android:id="@+id/ezbuy"
+        android:orderInCategory="200"
+        android:title="ezbuy"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/react_native"
-        android:orderInCategory="100"
+        android:orderInCategory="300"
         android:title="React-Natvie"
         app:showAsAction="never" />
 </menu>
