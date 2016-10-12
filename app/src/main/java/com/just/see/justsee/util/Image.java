@@ -15,10 +15,6 @@ public class Image {
             Picasso.with(iv.getContext())
                     .load(url)
                     .into(iv);
-           /* Glide.with(iv.getContext())
-                    .load(url)
-//                .placeholder(R.mipmap.ic_launcher)
-                    .into(iv);*/
         }
     }
 
